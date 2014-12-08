@@ -14,14 +14,12 @@ df<-read.delim("household_power_consumption.txt", header=TRUE, sep=";", na.strin
 df_subset<-df[(as.Date(df$Date,format="%d/%m/%Y") == as.Date('1/2/2007',format="%d/%m/%Y")) | 
               (as.Date(df$Date,format="%d/%m/%Y") == as.Date('2/2/2007',format="%d/%m/%Y")),]
 
-# Draw a line plot
-#hist(df_subset$Global_active_power,col='red',xlab='Global Active Power (kilowatts)',
-#     main="Global Active Power")
-
+# X-Axis is Time for 2 choosen days. Format to DataAndtime Object that can 
+# be used by the plot functions.
 time<-paste(df_subset$Date,df_subset$Time)
 df_subset$Time<-strptime(time,"%d/%m/%Y %H:%M:%S")
+
 plot(df_subset$Time,df_subset$Global_active_power,"l",xlab="",ylab="Global Active Power(kilowatt)")
-#title(main="Global Active Power")
 
 # Save to a png file of size 480*480
 dev.copy(png, file = "plot2.png", width=480,height=480) 
